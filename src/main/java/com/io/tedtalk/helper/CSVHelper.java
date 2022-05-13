@@ -29,7 +29,7 @@ public class CSVHelper {
 		return true;
 	}
 
-	public static List<TedTalk> csvToTutorials(InputStream is) {
+	public static List<TedTalk> csvToTedtalk(InputStream is) {
 		try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
 				CSVParser csvParser = new CSVParser(fileReader,
 						CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());) {

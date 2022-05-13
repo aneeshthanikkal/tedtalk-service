@@ -32,7 +32,7 @@ public class TedTalkServiceImpl implements TedTalkService {
 	@Override
 	public void saveTedTalk(MultipartFile file) {
 		try {
-			List<TedTalk> tutorials = CSVHelper.csvToTutorials(file.getInputStream());
+			List<TedTalk> tutorials = CSVHelper.csvToTedtalk(file.getInputStream());
 			tedTalkRepository.saveAll(tutorials);
 		} catch (IOException e) {
 			log.error("TedTalkController : saveTedTalk() "+e);
