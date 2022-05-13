@@ -2,13 +2,18 @@ package com.io.tedtalk.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +40,7 @@ public class TedTalkController implements BaseController {
 	public ResponseEntity<ResponseMessage> saveTedTalk(@RequestParam("file") MultipartFile file) {
 		if (CSVHelper.hasCSVFormat(file)) {
 			tedTalkService.saveTedTalk(file);
-			return ResponseEntity.status(HttpStatus.OK)
+			return ResponseEntity.status(HttpStatus.CREATED)
 					.body(new ResponseMessage(TedTalkConstants.TEDTALK_SAVED_SUCCESSFULLY));
 		}
 		throw new CommonBadRequestException(TedTalkConstants.INVALID_INPUT);
@@ -45,6 +50,17 @@ public class TedTalkController implements BaseController {
 	@GetMapping(path = RestURIConstants.TEDTALK + RestURIConstants.ID)
 	public ResponseEntity<TedTalkDto> findTedTalkById(@PathVariable(name = "id") String id) {
 		return new ResponseEntity<>(tedTalkService.findTedTalkById(id), HttpStatus.OK);
+	}
+	
+	@PutMapping(path = RestURIConstants.TEDTALK + RestURIConstants.ID)
+	public ResponseEntity<TedTalkDto> updateTedTalk(@PathVariable(name = "id") String id,@Valid @RequestBody TedTalkDto tedTalkDto) {
+		return new ResponseEntity<>(tedTalkService.updateTedTalk(id, tedTalkDto), HttpStatus.OK);
+	}
+	
+	@DeleteMapping(path = RestURIConstants.TEDTALK + RestURIConstants.ID)
+	public ResponseEntity<String> deleteTedTalk(@PathVariable(name = "id") String id) {
+		tedTalkService.deleteTedTalk(id);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
 	@GetMapping(path = RestURIConstants.TEDTALK)

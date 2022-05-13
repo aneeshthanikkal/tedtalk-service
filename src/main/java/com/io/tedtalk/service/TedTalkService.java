@@ -12,7 +12,10 @@ public interface TedTalkService {
 
 	TedTalkDto findTedTalkById(String id);
 
-	 List<TedTalkDto> findTedTalks(String author, String title, Long views, Long likes);
+	List<TedTalkDto> findTedTalks(String author, String title, Long views, Long likes);
 
+	void deleteTedTalk(String id);
+
+	TedTalkDto updateTedTalk(String id, TedTalkDto tedTalkDto);
 
 }

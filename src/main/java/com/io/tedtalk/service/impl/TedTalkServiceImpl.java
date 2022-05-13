@@ -73,4 +73,36 @@ public class TedTalkServiceImpl implements TedTalkService {
 		}
 		return tedTalkDtoList;
 	}
+
+	@Override
+	public void deleteTedTalk(String id) {
+		Optional<TedTalk> tedTalkOpt = tedTalkRepository.findById(id);
+		TedTalk tedTalk = tedTalkOpt
+				.orElseThrow(() -> new CommonResourceNotFoundException(TedTalkConstants.TEDTALK_NOT_FOUND));
+		tedTalkRepository.delete(tedTalk);
+		
+	}
+
+	@Override
+	public TedTalkDto updateTedTalk(String id, TedTalkDto tedTalkDto) {
+		Optional<TedTalk> tedTalkOpt = tedTalkRepository.findById(id);
+		TedTalk tedTalk = tedTalkOpt
+				.orElseThrow(() -> new CommonResourceNotFoundException(TedTalkConstants.TEDTALK_NOT_FOUND));
+		tedTalkRepository.save(createTedTalk(tedTalkDto, tedTalk.getTedTalkId()));
+		tedTalkDto.setTedTalkId(id);
+		return tedTalkDto;
+	}
+	
+	private TedTalk createTedTalk(TedTalkDto tedTalkDto, String tedTalkId) {
+		TedTalk tedTalk = new TedTalk();
+		tedTalk.setAuthor(tedTalkDto.getAuthor());
+		tedTalk.setDate(tedTalkDto.getDate());
+		tedTalk.setLikes(tedTalkDto.getLikes());
+		tedTalk.setLink(tedTalkDto.getLink());
+		tedTalk.setTedTalkId(tedTalkDto.getTedTalkId());
+		tedTalk.setTitle(tedTalkDto.getTitle());
+		tedTalk.setViews(tedTalkDto.getViews());
+		tedTalk.setTedTalkId(tedTalkId);
+		return tedTalk;
+	}
 }
