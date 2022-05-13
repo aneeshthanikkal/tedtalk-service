@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.io.tedtalk.constants.RestURIConstants;
 import com.io.tedtalk.constants.TedTalkConstants;
-import com.io.tedtalk.dto.ResponseMessage;
 import com.io.tedtalk.dto.TedTalkDto;
 import com.io.tedtalk.exception.CommonBadRequestException;
 import com.io.tedtalk.helper.CSVHelper;
@@ -37,11 +36,10 @@ public class TedTalkController implements BaseController {
 	}
 
 	@PostMapping(path = RestURIConstants.TEDTALK)
-	public ResponseEntity<ResponseMessage> saveTedTalk(@RequestParam("file") MultipartFile file) {
+	public ResponseEntity<String> saveTedTalk(@RequestParam("file") MultipartFile file) {
 		if (CSVHelper.hasCSVFormat(file)) {
 			tedTalkService.saveTedTalk(file);
-			return ResponseEntity.status(HttpStatus.CREATED)
-					.body(new ResponseMessage(TedTalkConstants.TEDTALK_SAVED_SUCCESSFULLY));
+			return new ResponseEntity<>(TedTalkConstants.TEDTALK_SAVED_SUCCESSFULLY,HttpStatus.CREATED);
 		}
 		throw new CommonBadRequestException(TedTalkConstants.INVALID_INPUT);
 

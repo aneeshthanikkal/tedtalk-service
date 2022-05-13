@@ -6,6 +6,7 @@ import java.time.Instant;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.io.tedtalk.constants.TedTalkConstants;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -28,13 +29,12 @@ public class TedTalkDto implements Serializable {
 
 	private String tedTalkId;
 
-	@NotNull(message = "")
+	@NotNull(message = TedTalkConstants.TITLE_NON_EMPTY)
 	private String title;
 
-	@NotNull(message = "")
 	private Instant date;
 
-	@NotNull(message = "")
+	@NotNull(message = TedTalkConstants.AUTHOR_NON_EMPTY)
 	private String author;
 
 	@Positive(message = "")
@@ -43,7 +43,7 @@ public class TedTalkDto implements Serializable {
 	@Positive(message = "")
 	private Long likes;
 	
-	@NotNull(message = "")
+	@NotNull(message = TedTalkConstants.LINK_NON_EMPTY)
 	private String link;
 	
 }
