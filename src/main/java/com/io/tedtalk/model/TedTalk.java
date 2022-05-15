@@ -10,7 +10,6 @@ import javax.persistence.Table;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -20,7 +19,6 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode
-@NoArgsConstructor
 public class TedTalk implements Serializable {
 
 
@@ -60,6 +58,10 @@ public class TedTalk implements Serializable {
 		this.likes = likes;
 		this.link = link;
 		this.tedTalkId = tedTalkId;
+	}
+
+	public TedTalk() {
+		// TODO Auto-generated constructor stub
 	}
 	
 }

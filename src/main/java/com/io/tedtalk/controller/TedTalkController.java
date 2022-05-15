@@ -8,6 +8,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,32 +37,38 @@ public class TedTalkController implements BaseController {
 	}
 
 	@PostMapping(path = RestURIConstants.TEDTALK)
+	@PreAuthorize("hasRole('ROLE_WRITE')")
 	public ResponseEntity<String> saveTedTalk(@RequestParam("file") MultipartFile file) {
 		if (CSVHelper.hasCSVFormat(file)) {
 			tedTalkService.saveTedTalk(file);
 			return new ResponseEntity<>(TedTalkConstants.TEDTALK_SAVED_SUCCESSFULLY,HttpStatus.CREATED);
+			
 		}
 		throw new CommonBadRequestException(TedTalkConstants.INVALID_INPUT);
 
 	}
 
 	@GetMapping(path = RestURIConstants.TEDTALK + RestURIConstants.ID)
+	@PreAuthorize("hasRole('ROLE_READ') or hasRole('ROLE_WRITE')")
 	public ResponseEntity<TedTalkDto> findTedTalkById(@PathVariable(name = "id") String id) {
 		return new ResponseEntity<>(tedTalkService.findTedTalkById(id), HttpStatus.OK);
 	}
 	
 	@PutMapping(path = RestURIConstants.TEDTALK + RestURIConstants.ID)
+	@PreAuthorize("hasRole('ROLE_WRITE')")
 	public ResponseEntity<TedTalkDto> updateTedTalk(@PathVariable(name = "id") String id,@Valid @RequestBody TedTalkDto tedTalkDto) {
 		return new ResponseEntity<>(tedTalkService.updateTedTalk(id, tedTalkDto), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(path = RestURIConstants.TEDTALK + RestURIConstants.ID)
+	@PreAuthorize("hasRole('ROLE_WRITE')")
 	public ResponseEntity<String> deleteTedTalk(@PathVariable(name = "id") String id) {
 		tedTalkService.deleteTedTalk(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
 	@GetMapping(path = RestURIConstants.TEDTALK)
+	@PreAuthorize("hasRole('ROLE_READ') or hasRole('ROLE_WRITE')")
 	public ResponseEntity<List<TedTalkDto>> findTedTalks(
 			@RequestParam(value = "author", required = false) String author,
 			@RequestParam(value = "title", required = false) String title,
