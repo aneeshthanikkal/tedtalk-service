@@ -12,12 +12,18 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.io.tedtalk.model.User;
 public class UserDetailsImpl implements UserDetails {
-	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4003519237896370166L;
+	
 	private String id;
 	private String username;
 	@JsonIgnore
 	private String password;
 	private Collection<? extends GrantedAuthority> authorities;
+	
 	public UserDetailsImpl(String id, String username, String password,
 			Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
@@ -25,6 +31,7 @@ public class UserDetailsImpl implements UserDetails {
 		this.password = password;
 		this.authorities = authorities;
 	}
+	
 	public static UserDetailsImpl build(User user) {
 		List<GrantedAuthority> authorities = user.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getName()))
@@ -35,6 +42,7 @@ public class UserDetailsImpl implements UserDetails {
 				user.getPassword(), 
 				authorities);
 	}
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return authorities;
