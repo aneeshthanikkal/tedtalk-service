@@ -81,15 +81,7 @@ public class TedTalkService {
 	}
 
 	private TedTalk createTedTalk(TedTalkDto tedTalkDto, String tedTalkId) {
-		TedTalk tedTalk = new TedTalk();
-		tedTalk.setAuthor(tedTalkDto.getAuthor());
-		tedTalk.setDate(tedTalkDto.getDate());
-		tedTalk.setLikes(tedTalkDto.getLikes());
-		tedTalk.setLink(tedTalkDto.getLink());
-		tedTalk.setTedTalkId(tedTalkDto.getTedTalkId());
-		tedTalk.setTitle(tedTalkDto.getTitle());
-		tedTalk.setViews(tedTalkDto.getViews());
-		tedTalk.setTedTalkId(tedTalkId);
-		return tedTalk;
+		return new TedTalk(tedTalkDto.getTitle(), tedTalkDto.getDate(), tedTalkDto.getAuthor(), tedTalkDto.getViews(),
+				tedTalkDto.getLikes(), tedTalkDto.getLink(), tedTalkId);
 	}
 }

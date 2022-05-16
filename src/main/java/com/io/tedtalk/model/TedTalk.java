@@ -9,15 +9,15 @@ import javax.persistence.Table;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Table(name = "T_TEDTALK")
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode
+@NoArgsConstructor
 public class TedTalk implements Serializable {
 
 
@@ -49,7 +49,6 @@ public class TedTalk implements Serializable {
 	private String link;
 
 	public TedTalk(String title, String date, String author, Long views, Long likes, String link, String tedTalkId) {
-		super();
 		this.title = title;
 		this.date = date;
 		this.author = author;
@@ -59,8 +58,4 @@ public class TedTalk implements Serializable {
 		this.tedTalkId = tedTalkId;
 	}
 
-	public TedTalk() {
-		// TODO Auto-generated constructor stub
-	}
-	
 }
