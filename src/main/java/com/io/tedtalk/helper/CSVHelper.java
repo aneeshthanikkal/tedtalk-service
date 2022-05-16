@@ -20,7 +20,6 @@ import com.io.tedtalk.model.TedTalk;
 public class CSVHelper {
 	public static String TYPE = "text/csv";
 
-//  static String[] HEADERs = { "Title", "Author", "Views", "Likes", "Link" };
 	public static boolean hasCSVFormat(MultipartFile file) {
 		if (!TYPE.equals(file.getContentType())) {
 			return false;
