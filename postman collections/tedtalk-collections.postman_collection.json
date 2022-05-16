@@ -1,0 +1,252 @@
+{
+	"info": {
+		"_postman_id": "024cd8e0-a72d-4c40-9735-4d6977b31298",
+		"name": "tedtalk-collections",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Signin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();    \r",
+							"    pm.environment.set(\"token\", jsonData.type +\" \"+ jsonData.token );\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.company.app-v1+json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"username\":\"iOAdmin\",\r\n\"password\":\"05Pm032*\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{env}}/api/auth/signin",
+					"protocol": "http",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save TedTalk",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.company.app-v1+json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Thanku/OneDrive/Desktop/io/iO_java_intake/iO_java_intake/data.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{env}}/tedtalk",
+					"protocol": "http",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"tedtalk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindWithFilter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();    \r",
+							"    pm.environment.set(\"id\", jsonData[0].tedTalkId );\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.company.app-v1+json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{env}}/tedtalk?likes=190000&views=720000",
+					"protocol": "http",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"tedtalk"
+					],
+					"query": [
+						{
+							"key": "likes",
+							"value": "190000"
+						},
+						{
+							"key": "views",
+							"value": "720000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindById",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/vnd.company.app-v1+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{env}}/tedtalk/{{id}}",
+					"protocol": "http",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"tedtalk",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.company.app-v1+json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"title\":\"test\",\r\n\"author\":\"test\",\r\n\"views\":1,\r\n\"likes\":1,\r\n\"link\":\"test\",\r\n\"date\":\"Dec 2022\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{env}}/tedtalk/{{id}}",
+					"protocol": "http",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"tedtalk",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/vnd.company.app-v1+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{env}}/tedtalk/{{id}}",
+					"protocol": "http",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"tedtalk",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,7 +1,5 @@
 package com.io.tedtalk.repository;
 
-import java.time.Instant;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,7 +21,7 @@ public class TedTalkDaoTest {
 	@Test
 	public void testCreateReadDelete() {
 
-		TedTalk tedTalk = new TedTalk("Title", Instant.now(), "Author", 1l, 1l, "link", "id");
+		TedTalk tedTalk = new TedTalk("Title", "Dec 2021", "Author", 1l, 1l, "link", "id");
 
 		tedTalkRepository.save(tedTalk);
 

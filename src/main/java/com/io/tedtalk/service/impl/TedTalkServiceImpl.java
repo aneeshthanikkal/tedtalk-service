@@ -35,8 +35,8 @@ public class TedTalkServiceImpl implements TedTalkService {
 			List<TedTalk> tutorials = CSVHelper.csvToTedtalk(file.getInputStream());
 			tedTalkRepository.saveAll(tutorials);
 		} catch (IOException e) {
-			log.error("TedTalkController : saveTedTalk() "+e);
-	        throw new CommonBadRequestException(TedTalkConstants.INVALID_INPUT);
+			log.error("TedTalkController : saveTedTalk() " + e);
+			throw new CommonBadRequestException(TedTalkConstants.INVALID_INPUT);
 		}
 	}
 
@@ -49,15 +49,8 @@ public class TedTalkServiceImpl implements TedTalkService {
 	}
 
 	private TedTalkDto createTedTalkDto(TedTalk tedTalk) {
-		TedTalkDto tedTalkDto = new TedTalkDto();
-		tedTalkDto.setAuthor(tedTalk.getAuthor());
-		tedTalkDto.setDate(tedTalk.getDate());
-		tedTalkDto.setLikes(tedTalk.getLikes());
-		tedTalkDto.setLink(tedTalk.getLink());
-		tedTalkDto.setTedTalkId(tedTalk.getTedTalkId());
-		tedTalkDto.setTitle(tedTalk.getTitle());
-		tedTalkDto.setViews(tedTalk.getViews());
-		return tedTalkDto;
+		return new TedTalkDto(tedTalk.getTedTalkId(), tedTalk.getTitle(), tedTalk.getDate(), tedTalk.getAuthor(),
+				tedTalk.getViews(), tedTalk.getLikes(), tedTalk.getLink());
 	}
 
 	@Override
@@ -80,7 +73,7 @@ public class TedTalkServiceImpl implements TedTalkService {
 		TedTalk tedTalk = tedTalkOpt
 				.orElseThrow(() -> new CommonResourceNotFoundException(TedTalkConstants.TEDTALK_NOT_FOUND));
 		tedTalkRepository.delete(tedTalk);
-		
+
 	}
 
 	@Override
@@ -92,7 +85,7 @@ public class TedTalkServiceImpl implements TedTalkService {
 		tedTalkDto.setTedTalkId(id);
 		return tedTalkDto;
 	}
-	
+
 	private TedTalk createTedTalk(TedTalkDto tedTalkDto, String tedTalkId) {
 		TedTalk tedTalk = new TedTalk();
 		tedTalk.setAuthor(tedTalkDto.getAuthor());

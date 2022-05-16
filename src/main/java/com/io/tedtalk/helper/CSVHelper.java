@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class CSVHelper {
 			for (CSVRecord csvRecord : csvRecords) {
 				likes = StringUtils.isNumeric(csvRecord.get(TedTalkConstants.LIKES))?Long.parseLong(csvRecord.get(TedTalkConstants.LIKES)):0;
 				views = StringUtils.isNumeric(csvRecord.get(TedTalkConstants.VIEWS))?Long.parseLong(csvRecord.get(TedTalkConstants.VIEWS)):0;
-				TedTalk tedTalk = new TedTalk(csvRecord.get(TedTalkConstants.TITLE), Instant.now(),
+				TedTalk tedTalk = new TedTalk(csvRecord.get(TedTalkConstants.TITLE), csvRecord.get(TedTalkConstants.DATE),
 						csvRecord.get(TedTalkConstants.AUTHOR), views,
 						likes, csvRecord.get(TedTalkConstants.LINK),
 						Generators.timeBasedGenerator().generate().toString());

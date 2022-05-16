@@ -3,7 +3,6 @@ package com.io.tedtalk.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +29,7 @@ public class TedTalkServiceTest {
 
 	@Test
 	public void testFindTedTalks() {
-		TedTalk tedTalk = new TedTalk("Title", Instant.now(), "Author", 1l, 1l, "link", "id");
+		TedTalk tedTalk = new TedTalk("Title", "Dec 2021", "Author", 1l, 1l, "link", "id");
 		List<TedTalk> tedTalks = Arrays.asList(tedTalk);
 		when(dao.findByAuthorAndTitleAndViewsAndLikes(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(tedTalks);
 		List<TedTalkDto> tedTalkList = service.findTedTalks(null, null, null, null);
@@ -39,7 +38,7 @@ public class TedTalkServiceTest {
 	
 	@Test
 	public void testFindTedTalkById() {
-		TedTalk tedTalk = new TedTalk("Title", Instant.now(), "Author", 1l, 1l, "link", "id");
+		TedTalk tedTalk = new TedTalk("Title", "Dec 2021", "Author", 1l, 1l, "link", "id");
 		Optional<TedTalk> tedTalkOpt = Optional.of(tedTalk);
 		when(dao.findById(Mockito.anyString())).thenReturn(tedTalkOpt);
 		TedTalkDto tedTalkDto = service.findTedTalkById("id");

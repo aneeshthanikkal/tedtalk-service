@@ -1,7 +1,6 @@
 package com.io.tedtalk.dto;
 
 import java.io.Serializable;
-import java.time.Instant;
 
 import javax.validation.constraints.NotNull;
 
@@ -30,7 +29,7 @@ public class TedTalkDto implements Serializable {
 	@NotNull(message = TedTalkConstants.TITLE_NON_EMPTY)
 	private String title;
 
-	private Instant date;
+	private String date;
 
 	@NotNull(message = TedTalkConstants.AUTHOR_NON_EMPTY)
 	private String author;

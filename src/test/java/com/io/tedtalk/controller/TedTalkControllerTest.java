@@ -6,7 +6,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 
@@ -58,7 +57,7 @@ public class TedTalkControllerTest {
 	@Test
 	void whenReadStudent_returnJsonContent() throws Exception {
 		String accessToken = obtainAccessToken();
-		TedTalkDto tedTalk = new TedTalkDto("id", "Title", Instant.now(), "Author", 1l, 1l, "link");
+		TedTalkDto tedTalk = new TedTalkDto("id", "Title", "Dec 2021", "Author", 1l, 1l, "link");
 		List<TedTalkDto> tedTalks = Arrays.asList(tedTalk);
 		when(tedTalkServiceImpl.findTedTalks(Mockito.anyString(), Mockito.anyString(), Mockito.anyLong(),
 				Mockito.anyLong())).thenReturn(tedTalks);

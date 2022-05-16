@@ -1,7 +1,6 @@
 package com.io.tedtalk.model;
 
 import java.io.Serializable;
-import java.time.Instant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,7 +34,7 @@ public class TedTalk implements Serializable {
 	private String title;
 	
 	@Column(name = "DATE")
-	private Instant date;
+	private String date;
 	
 	@Column(name = "AUTHOR")
 	private String author;
@@ -49,7 +48,7 @@ public class TedTalk implements Serializable {
 	@Column(name = "LINK")
 	private String link;
 
-	public TedTalk(String title, Instant date, String author, Long views, Long likes, String link, String tedTalkId) {
+	public TedTalk(String title, String date, String author, Long views, Long likes, String link, String tedTalkId) {
 		super();
 		this.title = title;
 		this.date = date;
