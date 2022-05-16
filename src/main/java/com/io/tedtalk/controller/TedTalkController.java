@@ -24,7 +24,7 @@ import com.io.tedtalk.constants.TedTalkConstants;
 import com.io.tedtalk.dto.TedTalkDto;
 import com.io.tedtalk.exception.CommonBadRequestException;
 import com.io.tedtalk.helper.CSVHelper;
-import com.io.tedtalk.service.TedTalkService;
+import com.io.tedtalk.service.impl.TedTalkService;
 
 @RestController
 public class TedTalkController {

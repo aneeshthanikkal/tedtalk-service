@@ -19,17 +19,15 @@ import com.io.tedtalk.exception.CommonResourceNotFoundException;
 import com.io.tedtalk.helper.CSVHelper;
 import com.io.tedtalk.model.TedTalk;
 import com.io.tedtalk.repository.TedTalkRepository;
-import com.io.tedtalk.service.TedTalkService;
 
 @Service
-public class TedTalkServiceImpl implements TedTalkService {
+public class TedTalkService {
 
-	static final Log log = LogFactory.getLog(TedTalkServiceImpl.class);
+	static final Log log = LogFactory.getLog(TedTalkService.class);
 
 	@Resource
 	TedTalkRepository tedTalkRepository;
 
-	@Override
 	public void saveTedTalk(MultipartFile file) {
 		try {
 			List<TedTalk> tutorials = CSVHelper.csvToTedtalk(file.getInputStream());
@@ -40,7 +38,6 @@ public class TedTalkServiceImpl implements TedTalkService {
 		}
 	}
 
-	@Override
 	public TedTalkDto findTedTalkById(String id) {
 		Optional<TedTalk> tedTalkOpt = tedTalkRepository.findById(id);
 		TedTalk tedTalk = tedTalkOpt
@@ -53,7 +50,6 @@ public class TedTalkServiceImpl implements TedTalkService {
 				tedTalk.getViews(), tedTalk.getLikes(), tedTalk.getLink());
 	}
 
-	@Override
 	public List<TedTalkDto> findTedTalks(String author, String title, Long views, Long likes) {
 		List<TedTalk> tedTalks = tedTalkRepository.findByAuthorAndTitleAndViewsAndLikes(Optional.ofNullable(author),
 				Optional.ofNullable(title), Optional.ofNullable(views), Optional.ofNullable(likes));
@@ -67,7 +63,6 @@ public class TedTalkServiceImpl implements TedTalkService {
 		return tedTalkDtoList;
 	}
 
-	@Override
 	public void deleteTedTalk(String id) {
 		Optional<TedTalk> tedTalkOpt = tedTalkRepository.findById(id);
 		TedTalk tedTalk = tedTalkOpt
@@ -76,7 +71,6 @@ public class TedTalkServiceImpl implements TedTalkService {
 
 	}
 
-	@Override
 	public TedTalkDto updateTedTalk(String id, TedTalkDto tedTalkDto) {
 		Optional<TedTalk> tedTalkOpt = tedTalkRepository.findById(id);
 		TedTalk tedTalk = tedTalkOpt

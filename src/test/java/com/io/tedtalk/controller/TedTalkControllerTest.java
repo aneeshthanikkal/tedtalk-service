@@ -30,7 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.io.tedtalk.dto.LoginRequest;
 import com.io.tedtalk.dto.TedTalkDto;
-import com.io.tedtalk.service.impl.TedTalkServiceImpl;
+import com.io.tedtalk.service.impl.TedTalkService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -47,7 +47,7 @@ public class TedTalkControllerTest {
 	private FilterChainProxy springSecurityFilterChain;
 
 	@MockBean
-	private TedTalkServiceImpl tedTalkServiceImpl;
+	private TedTalkService tedTalkService;
 
 	@Before
 	public void setup() {
@@ -59,7 +59,7 @@ public class TedTalkControllerTest {
 		String accessToken = obtainAccessToken();
 		TedTalkDto tedTalk = new TedTalkDto("id", "Title", "Dec 2021", "Author", 1l, 1l, "link");
 		List<TedTalkDto> tedTalks = Arrays.asList(tedTalk);
-		when(tedTalkServiceImpl.findTedTalks(Mockito.anyString(), Mockito.anyString(), Mockito.anyLong(),
+		when(tedTalkService.findTedTalks(Mockito.anyString(), Mockito.anyString(), Mockito.anyLong(),
 				Mockito.anyLong())).thenReturn(tedTalks);
 
 		this.mockMvc.perform(get("/tedtalk").header("Authorization", "Bearer " + accessToken))

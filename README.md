@@ -9,8 +9,8 @@ This project contains several API's for Ted talk service application which inclu
 ## Documentation
 
 
-   
-   1. Swagger documentation is available at http://localhost:8080/tedtalk-manager/swagger-ui.html#!/
+   1.Postman collections and environment variables are available in the project folder
+   2. Swagger documentation is available at http://localhost:8080/tedtalk-manager/swagger-ui.html#!/
    
 				
 ## Requirements
@@ -26,6 +26,7 @@ For building and running the application you need:
 1. Global exception handler is implemented 
 2. i18 is implemented with a message property file
 3. Flyway is added for migration
+4. Spring security with JWT and basic authentication and authorization is implemented.
 
 
 ## Running the application using Docker

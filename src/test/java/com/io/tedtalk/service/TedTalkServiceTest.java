@@ -17,12 +17,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.io.tedtalk.dto.TedTalkDto;
 import com.io.tedtalk.model.TedTalk;
 import com.io.tedtalk.repository.TedTalkRepository;
-import com.io.tedtalk.service.impl.TedTalkServiceImpl;
+import com.io.tedtalk.service.impl.TedTalkService;
 
 @ExtendWith(MockitoExtension.class)
 public class TedTalkServiceTest {
 	@InjectMocks
-	TedTalkServiceImpl service;
+	TedTalkService service;
 
 	@Mock
 	TedTalkRepository dao;
