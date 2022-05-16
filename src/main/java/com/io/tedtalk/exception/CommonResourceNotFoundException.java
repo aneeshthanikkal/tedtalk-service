@@ -6,12 +6,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpStatus;
 
-/**
- * 
- * @author Aneesh Thannikkal
- *
- */
-
 public class CommonResourceNotFoundException extends RuntimeException implements Serializable{
 
 

@@ -5,11 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-/**
- * 
- * @author Aneesh Thannikkal
- *
- */
 @Getter
 @Setter
 @ToString
