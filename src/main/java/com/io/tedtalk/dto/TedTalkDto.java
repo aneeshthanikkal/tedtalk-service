@@ -4,23 +4,21 @@ import java.io.Serializable;
 import java.time.Instant;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 
 import com.io.tedtalk.constants.TedTalkConstants;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode
+@AllArgsConstructor
 @NoArgsConstructor
 public class TedTalkDto implements Serializable {
-
 	
 	/**
 	 * 
@@ -37,10 +35,8 @@ public class TedTalkDto implements Serializable {
 	@NotNull(message = TedTalkConstants.AUTHOR_NON_EMPTY)
 	private String author;
 
-	@Positive(message = "")
 	private Long views;
 	
-	@Positive(message = "")
 	private Long likes;
 	
 	@NotNull(message = TedTalkConstants.LINK_NON_EMPTY)

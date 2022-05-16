@@ -27,7 +27,7 @@ import com.io.tedtalk.helper.CSVHelper;
 import com.io.tedtalk.service.TedTalkService;
 
 @RestController
-public class TedTalkController implements BaseController {
+public class TedTalkController {
 	static final Log log = LogFactory.getLog(TedTalkController.class);
 
 	private TedTalkService tedTalkService;
@@ -36,7 +36,7 @@ public class TedTalkController implements BaseController {
 		this.tedTalkService = tedTalkService;
 	}
 
-	@PostMapping(path = RestURIConstants.TEDTALK)
+	@PostMapping(path = RestURIConstants.TEDTALK, produces = "application/vnd.company.app-v1+json")
 	@PreAuthorize("hasRole('ROLE_WRITE')")
 	public ResponseEntity<String> saveTedTalk(@RequestParam("file") MultipartFile file) {
 		if (CSVHelper.hasCSVFormat(file)) {
@@ -48,26 +48,26 @@ public class TedTalkController implements BaseController {
 
 	}
 
-	@GetMapping(path = RestURIConstants.TEDTALK + RestURIConstants.ID)
-	@PreAuthorize("hasRole('ROLE_READ') or hasRole('ROLE_WRITE')")
+	@GetMapping(path = RestURIConstants.TEDTALK + RestURIConstants.ID, produces = "application/vnd.company.app-v1+json")
+	@PreAuthorize("hasRole('ROLE_READ')")
 	public ResponseEntity<TedTalkDto> findTedTalkById(@PathVariable(name = "id") String id) {
 		return new ResponseEntity<>(tedTalkService.findTedTalkById(id), HttpStatus.OK);
 	}
 	
-	@PutMapping(path = RestURIConstants.TEDTALK + RestURIConstants.ID)
+	@PutMapping(path = RestURIConstants.TEDTALK + RestURIConstants.ID, produces = "application/vnd.company.app-v1+json")
 	@PreAuthorize("hasRole('ROLE_WRITE')")
 	public ResponseEntity<TedTalkDto> updateTedTalk(@PathVariable(name = "id") String id,@Valid @RequestBody TedTalkDto tedTalkDto) {
 		return new ResponseEntity<>(tedTalkService.updateTedTalk(id, tedTalkDto), HttpStatus.OK);
 	}
 	
-	@DeleteMapping(path = RestURIConstants.TEDTALK + RestURIConstants.ID)
+	@DeleteMapping(path = RestURIConstants.TEDTALK + RestURIConstants.ID, produces = "application/vnd.company.app-v1+json")
 	@PreAuthorize("hasRole('ROLE_WRITE')")
 	public ResponseEntity<String> deleteTedTalk(@PathVariable(name = "id") String id) {
 		tedTalkService.deleteTedTalk(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
-	@GetMapping(path = RestURIConstants.TEDTALK)
+	@GetMapping(path = RestURIConstants.TEDTALK, produces = "application/vnd.company.app-v1+json")
 	@PreAuthorize("hasRole('ROLE_READ') or hasRole('ROLE_WRITE')")
 	public ResponseEntity<List<TedTalkDto>> findTedTalks(
 			@RequestParam(value = "author", required = false) String author,

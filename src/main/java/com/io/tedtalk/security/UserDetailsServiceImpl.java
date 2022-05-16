@@ -1,4 +1,4 @@
-package com.io.tedtalk.service.impl;
+package com.io.tedtalk.security;
 
 import javax.annotation.Resource;
 
@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.io.tedtalk.model.User;
 import com.io.tedtalk.repository.UserRepository;
-import com.io.tedtalk.security.UserDetailsImpl;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 	@Resource
