@@ -4,12 +4,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpStatus;
 
-/**
- * 
- * @author Aneesh Thannikkal
- *
- */
-
 public class CommonBadRequestException extends RuntimeException {
 
 
