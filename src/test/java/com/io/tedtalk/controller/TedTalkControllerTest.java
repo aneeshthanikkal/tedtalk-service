@@ -30,7 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.io.tedtalk.dto.LoginRequest;
 import com.io.tedtalk.dto.TedTalkDto;
-import com.io.tedtalk.service.impl.TedTalkService;
+import com.io.tedtalk.service.TedTalkService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

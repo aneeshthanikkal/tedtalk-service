@@ -1,4 +1,4 @@
-package com.io.tedtalk.service.impl;
+package com.io.tedtalk.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
