@@ -1,4 +1,4 @@
-package com.io.tedtalk;
+package com.io.tedtalk.controller;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

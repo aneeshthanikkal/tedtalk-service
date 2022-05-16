@@ -1,4 +1,4 @@
-package com.io.tedtalk;
+package com.io.tedtalk.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -21,7 +21,7 @@ import com.io.tedtalk.repository.TedTalkRepository;
 import com.io.tedtalk.service.impl.TedTalkServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
-public class ServiceTests {
+public class TedTalkServiceTest {
 	@InjectMocks
 	TedTalkServiceImpl service;
 
