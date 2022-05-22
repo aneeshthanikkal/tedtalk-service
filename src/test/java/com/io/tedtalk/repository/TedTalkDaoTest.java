@@ -24,13 +24,13 @@ public class TedTalkDaoTest {
 		.date("Dec 2021")
 		.likes(1l)
 		.link("link").title("Title")
-		.views(1l).tedTalkId("dsdfsfsfsf34343")
+		.views(1l).tedTalkId("dsdfsfsfsf34343").tedTalkId("id")
 		.build();
 
 		tedTalkRepository.save(tedTalk);
 
 		Iterable<TedTalk> tedTalks = tedTalkRepository.findAll();
-		Assertions.assertThat(tedTalks).extracting(TedTalk::getTitle).containsOnly("Title");
+		Assertions.assertThat(tedTalks).extracting(TedTalk::getTitle).contains("Title");
 
 		tedTalkRepository.deleteAll();
 		Assertions.assertThat(tedTalkRepository.findAll()).isEmpty();

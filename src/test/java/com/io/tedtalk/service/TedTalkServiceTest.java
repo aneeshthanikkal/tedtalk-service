@@ -46,7 +46,7 @@ public class TedTalkServiceTest {
 				.date("Dec 2021")
 				.likes(1l)
 				.link("link").title("Title")
-				.views(1l)
+				.views(1l).tedTalkId("id")
 				.build();
 		Optional<TedTalk> tedTalkOpt = Optional.of(tedTalk);
 		when(dao.findById(Mockito.anyString())).thenReturn(tedTalkOpt);

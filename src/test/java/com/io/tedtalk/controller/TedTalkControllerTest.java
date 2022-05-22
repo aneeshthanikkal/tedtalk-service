@@ -9,9 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JacksonJsonParser;
@@ -19,12 +17,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.security.web.FilterChainProxy;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -32,7 +26,6 @@ import com.io.tedtalk.dto.LoginRequest;
 import com.io.tedtalk.dto.TedTalkDto;
 import com.io.tedtalk.service.TedTalkService;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class TedTalkControllerTest {
@@ -40,22 +33,11 @@ public class TedTalkControllerTest {
 	@Autowired
 	MockMvc mockMvc;
 
-	@Autowired
-	private WebApplicationContext wac;
-
-	@Autowired
-	private FilterChainProxy springSecurityFilterChain;
-
 	@MockBean
 	private TedTalkService tedTalkService;
 
-	@Before
-	public void setup() {
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).addFilter(springSecurityFilterChain).build();
-	}
-
 	@Test
-	void whenReadStudent_returnJsonContent() throws Exception {
+	void findTedTalksTest() throws Exception {
 		String accessToken = obtainAccessToken();
 		TedTalkDto tedTalk = new TedTalkDto("id", "Title", "Dec 2021", "Author", 1l, 1l, "link");
 		List<TedTalkDto> tedTalks = Arrays.asList(tedTalk);
