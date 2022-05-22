@@ -23,9 +23,9 @@ public class TedTalkService {
 
 	static final Log log = LogFactory.getLog(TedTalkService.class);
 
-	TedTalkRepository tedTalkRepository;
+	private TedTalkRepository tedTalkRepository;
 
-	CSVHelper csvHelper;
+	private CSVHelper csvHelper;
 
 	public TedTalkService(TedTalkRepository tedTalkRepository, CSVHelper csvHelper) {
 		this.tedTalkRepository = tedTalkRepository;
@@ -52,8 +52,9 @@ public class TedTalkService {
 	}
 
 	private TedTalkDto createTedTalkDto(TedTalk tedTalk) {
-		return new TedTalkDto(tedTalk.getTedTalkId(), tedTalk.getTitle(), tedTalk.getDate(), tedTalk.getAuthor(),
-				tedTalk.getViews(), tedTalk.getLikes(), tedTalk.getLink());
+		return TedTalkDto.builder().author(tedTalk.getAuthor()).date(tedTalk.getDate()).likes(tedTalk.getLikes())
+				.link(tedTalk.getLink()).tedTalkId(tedTalk.getTedTalkId()).title(tedTalk.getTitle())
+				.views(tedTalk.getViews()).build();
 	}
 
 	public List<TedTalkDto> findTedTalks(String author, String title, Long views, Long likes) {
@@ -82,13 +83,13 @@ public class TedTalkService {
 		TedTalk tedTalk = tedTalkOpt
 				.orElseThrow(() -> new CommonResourceNotFoundException(TedTalkConstants.TEDTALK_NOT_FOUND));
 		tedTalkRepository.save(createTedTalk(tedTalkDto, tedTalk.getTedTalkId()));
-		tedTalkDto.setTedTalkId(id);
 		return tedTalkDto;
 	}
 
 	private TedTalk createTedTalk(TedTalkDto tedTalkDto, String tedTalkId) {
 
 		return TedTalk.builder().author(tedTalkDto.getAuthor()).date(tedTalkDto.getDate()).likes(tedTalkDto.getLikes())
-				.link(tedTalkDto.getLink()).title(tedTalkDto.getTitle()).views(tedTalkDto.getViews()).build();
+				.link(tedTalkDto.getLink()).title(tedTalkDto.getTitle()).views(tedTalkDto.getViews())
+				.tedTalkId(tedTalkId).build();
 	}
 }

@@ -52,7 +52,7 @@ public class CSVHelper {
 						? Long.parseLong(csvRecord.get(TedTalkConstants.VIEWS))
 						: 0).tedTalkId(Generators.timeBasedGenerator().generate().toString())
 				.build();
-
-	};
+		
+		};
 
 }

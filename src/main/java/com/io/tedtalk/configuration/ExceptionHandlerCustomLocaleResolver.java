@@ -15,6 +15,7 @@ import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 
 @Configuration
 public class ExceptionHandlerCustomLocaleResolver extends AcceptHeaderLocaleResolver implements WebMvcConfigurer{
+	
 	List<Locale> locales = Arrays.asList(new Locale("en"));
 
 	@Override

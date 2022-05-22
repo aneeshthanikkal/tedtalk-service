@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -21,7 +20,6 @@ import lombok.Setter;
 @EqualsAndHashCode
 @NoArgsConstructor
 @Builder
-@AllArgsConstructor
 public class TedTalk implements Serializable {
 
 
@@ -51,5 +49,15 @@ public class TedTalk implements Serializable {
 	
 	@Column(name = "LINK")
 	private String link;
+
+	public TedTalk(String tedTalkId, String title, String date, String author, Long views, Long likes, String link) {
+		this.tedTalkId = tedTalkId;
+		this.title = title;
+		this.date = date;
+		this.author = author;
+		this.views = views;
+		this.likes = likes;
+		this.link = link;
+	}
 
 }

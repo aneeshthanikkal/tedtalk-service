@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import com.io.tedtalk.constants.TedTalkConstants;
 
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
+@Builder
 public class TedTalkDto implements Serializable {
 	
 	/**
