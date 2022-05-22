@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
@@ -25,13 +23,21 @@ public class TedTalkService {
 
 	static final Log log = LogFactory.getLog(TedTalkService.class);
 
-	@Resource
 	TedTalkRepository tedTalkRepository;
+
+	CSVHelper csvHelper;
+
+	public TedTalkService(TedTalkRepository tedTalkRepository, CSVHelper csvHelper) {
+		this.tedTalkRepository = tedTalkRepository;
+		this.csvHelper = csvHelper;
+	}
 
 	public void saveTedTalk(MultipartFile file) {
 		try {
-			List<TedTalk> tutorials = CSVHelper.csvToTedtalk(file.getInputStream());
-			tedTalkRepository.saveAll(tutorials);
+			if (csvHelper.hasCSVFormat(file)) {
+				List<TedTalk> tutorials = csvHelper.mapCsvToTedtalk(file.getInputStream());
+				tedTalkRepository.saveAll(tutorials);
+			}
 		} catch (IOException e) {
 			log.error("TedTalkController : saveTedTalk() " + e);
 			throw new CommonBadRequestException(TedTalkConstants.INVALID_INPUT);
@@ -64,10 +70,10 @@ public class TedTalkService {
 	}
 
 	public void deleteTedTalk(String id) {
-		Optional<TedTalk> tedTalkOpt = tedTalkRepository.findById(id);
-		TedTalk tedTalk = tedTalkOpt
-				.orElseThrow(() -> new CommonResourceNotFoundException(TedTalkConstants.TEDTALK_NOT_FOUND));
-		tedTalkRepository.delete(tedTalk);
+		if (!tedTalkRepository.existsById(id)) {
+			throw new CommonResourceNotFoundException(TedTalkConstants.TEDTALK_NOT_FOUND);
+		}
+		tedTalkRepository.deleteById(id);
 
 	}
 
@@ -81,7 +87,8 @@ public class TedTalkService {
 	}
 
 	private TedTalk createTedTalk(TedTalkDto tedTalkDto, String tedTalkId) {
-		return new TedTalk(tedTalkDto.getTitle(), tedTalkDto.getDate(), tedTalkDto.getAuthor(), tedTalkDto.getViews(),
-				tedTalkDto.getLikes(), tedTalkDto.getLink(), tedTalkId);
+
+		return TedTalk.builder().author(tedTalkDto.getAuthor()).date(tedTalkDto.getDate()).likes(tedTalkDto.getLikes())
+				.link(tedTalkDto.getLink()).title(tedTalkDto.getTitle()).views(tedTalkDto.getViews()).build();
 	}
 }

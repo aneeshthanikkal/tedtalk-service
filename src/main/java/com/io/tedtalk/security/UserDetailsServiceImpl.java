@@ -1,7 +1,5 @@
 package com.io.tedtalk.security;
 
-import javax.annotation.Resource;
-
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,8 +10,12 @@ import com.io.tedtalk.model.User;
 import com.io.tedtalk.repository.UserRepository;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-	@Resource
+
 	UserRepository userRepository;
+	
+	public UserDetailsServiceImpl(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
 	
 	@Override
 	@Transactional

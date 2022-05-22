@@ -22,8 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.io.tedtalk.constants.RestURIConstants;
 import com.io.tedtalk.constants.TedTalkConstants;
 import com.io.tedtalk.dto.TedTalkDto;
-import com.io.tedtalk.exception.CommonBadRequestException;
-import com.io.tedtalk.helper.CSVHelper;
 import com.io.tedtalk.service.TedTalkService;
 
 @RestController
@@ -39,13 +37,8 @@ public class TedTalkController {
 	@PostMapping(path = RestURIConstants.TEDTALK, produces = "application/vnd.company.app-v1+json")
 	@PreAuthorize("hasRole('ROLE_WRITE')")
 	public ResponseEntity<String> saveTedTalk(@RequestParam("file") MultipartFile file) {
-		if (CSVHelper.hasCSVFormat(file)) {
-			tedTalkService.saveTedTalk(file);
-			return new ResponseEntity<>(TedTalkConstants.TEDTALK_SAVED_SUCCESSFULLY,HttpStatus.CREATED);
-			
-		}
-		throw new CommonBadRequestException(TedTalkConstants.INVALID_INPUT);
-
+		tedTalkService.saveTedTalk(file);
+		return new ResponseEntity<>(TedTalkConstants.TEDTALK_SAVED_SUCCESSFULLY, HttpStatus.CREATED);
 	}
 
 	@GetMapping(path = RestURIConstants.TEDTALK + RestURIConstants.ID, produces = "application/vnd.company.app-v1+json")
@@ -53,14 +46,16 @@ public class TedTalkController {
 	public ResponseEntity<TedTalkDto> findTedTalkById(@PathVariable(name = "id") String id) {
 		return new ResponseEntity<>(tedTalkService.findTedTalkById(id), HttpStatus.OK);
 	}
-	
+
 	@PutMapping(path = RestURIConstants.TEDTALK + RestURIConstants.ID, produces = "application/vnd.company.app-v1+json")
 	@PreAuthorize("hasRole('ROLE_WRITE')")
-	public ResponseEntity<TedTalkDto> updateTedTalk(@PathVariable(name = "id") String id,@Valid @RequestBody TedTalkDto tedTalkDto) {
+	public ResponseEntity<TedTalkDto> updateTedTalk(@PathVariable(name = "id") String id,
+			@Valid @RequestBody TedTalkDto tedTalkDto) {
 		return new ResponseEntity<>(tedTalkService.updateTedTalk(id, tedTalkDto), HttpStatus.OK);
 	}
-	
-	@DeleteMapping(path = RestURIConstants.TEDTALK + RestURIConstants.ID, produces = "application/vnd.company.app-v1+json")
+
+	@DeleteMapping(path = RestURIConstants.TEDTALK
+			+ RestURIConstants.ID, produces = "application/vnd.company.app-v1+json")
 	@PreAuthorize("hasRole('ROLE_WRITE')")
 	public ResponseEntity<String> deleteTedTalk(@PathVariable(name = "id") String id) {
 		tedTalkService.deleteTedTalk(id);

@@ -28,7 +28,12 @@ public class TedTalkServiceTest {
 
 	@Test
 	public void testFindTedTalks() {
-		TedTalk tedTalk = new TedTalk("Title", "Dec 2021", "Author", 1l, 1l, "link", "id");
+		TedTalk tedTalk = TedTalk.builder().author("Author")
+				.date("Dec 2021")
+				.likes(1l)
+				.link("link").title("Title")
+				.views(1l)
+				.build();
 		List<TedTalk> tedTalks = Arrays.asList(tedTalk);
 		when(dao.findByAuthorAndTitleAndViewsAndLikes(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(tedTalks);
 		List<TedTalkDto> tedTalkList = service.findTedTalks(null, null, null, null);
@@ -37,7 +42,12 @@ public class TedTalkServiceTest {
 	
 	@Test
 	public void testFindTedTalkById() {
-		TedTalk tedTalk = new TedTalk("Title", "Dec 2021", "Author", 1l, 1l, "link", "id");
+		TedTalk tedTalk = TedTalk.builder().author("Author")
+				.date("Dec 2021")
+				.likes(1l)
+				.link("link").title("Title")
+				.views(1l)
+				.build();
 		Optional<TedTalk> tedTalkOpt = Optional.of(tedTalk);
 		when(dao.findById(Mockito.anyString())).thenReturn(tedTalkOpt);
 		TedTalkDto tedTalkDto = service.findTedTalkById("id");

@@ -1,6 +1,5 @@
 package com.io.tedtalk.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,10 +22,14 @@ import com.io.tedtalk.security.UserDetailsServiceImpl;
 		prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	@Autowired
-	UserDetailsServiceImpl userDetailsService;
-	@Autowired
+	private UserDetailsServiceImpl userDetailsService;
+	
 	private AuthEntryPointJwt unauthorizedHandler;
+	
+	public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler) {
+		this.userDetailsService = userDetailsService;
+		this.unauthorizedHandler = unauthorizedHandler;
+	}
 	
 	@Bean
 	public AuthTokenFilter authenticationJwtTokenFilter() {

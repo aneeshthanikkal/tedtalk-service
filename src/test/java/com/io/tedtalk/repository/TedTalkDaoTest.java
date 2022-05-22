@@ -20,8 +20,12 @@ public class TedTalkDaoTest {
 
 	@Test
 	public void testCreateReadDelete() {
-
-		TedTalk tedTalk = new TedTalk("Title", "Dec 2021", "Author", 1l, 1l, "link", "id");
+		TedTalk tedTalk = TedTalk.builder().author("Author")
+		.date("Dec 2021")
+		.likes(1l)
+		.link("link").title("Title")
+		.views(1l).tedTalkId("dsdfsfsfsf34343")
+		.build();
 
 		tedTalkRepository.save(tedTalk);
 

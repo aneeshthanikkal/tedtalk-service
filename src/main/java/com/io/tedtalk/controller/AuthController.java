@@ -1,6 +1,5 @@
 package com.io.tedtalk.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,10 +17,15 @@ import com.io.tedtalk.security.JwtUtils;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-	@Autowired
+	
 	AuthenticationManager authenticationManager;
-	@Autowired
+	
 	JwtUtils jwtUtils;
+	
+	public AuthController(AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
+		this.authenticationManager = authenticationManager;
+		this.jwtUtils = jwtUtils;
+	}
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {

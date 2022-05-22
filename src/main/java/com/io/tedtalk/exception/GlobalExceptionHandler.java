@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -26,9 +24,8 @@ import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-	static final Log log = LogFactory.getLog(GlobalExceptionHandler.class);
-
 	private final MessageSource messageSource;
+	
 	Locale locale = LocaleContextHolder.getLocale();
 
 	@Autowired
@@ -38,7 +35,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<Object> genericExceptionHandler(Exception ex) {
-		log.debug("Exception  :" + ex);
 		ErrorDetail error = new ErrorDetail();
 		if (ex instanceof MissingRequestHeaderException) {
 			error.setStatus(HttpStatus.FORBIDDEN.value());
@@ -62,7 +58,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(CommonBadRequestException.class)
 	public ResponseEntity<Object> handleCommonBadRequestException(CommonBadRequestException ex) {
-		log.debug("Entered CommonBadRequestException handler  :" + ex.getMessage());
 		ErrorDetail error = new ErrorDetail();
 		error.setStatus(ex.getErrorCode().value());
 		error.setMessage(messageSource.getMessage(ex.getMessage(), ex.getArgs(), locale));
@@ -71,7 +66,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	@ExceptionHandler(CommonResourceNotFoundException.class)
 	public ResponseEntity<Object> handleCommonResourceNotFoundException(CommonResourceNotFoundException ex) {
-		log.debug("Entered CommonResourceNotFoundException handler  :" + ex.getMessage());
 		ErrorDetail error = new ErrorDetail();
 		error.setStatus(ex.getErrorCode().value());
 		error.setMessage(messageSource.getMessage(ex.getMessage(), ex.getArgs(), locale));
