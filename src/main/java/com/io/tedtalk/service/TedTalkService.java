@@ -35,8 +35,8 @@ public class TedTalkService {
 	public void saveTedTalk(MultipartFile file) {
 		try {
 			if (csvHelper.hasCSVFormat(file)) {
-				List<TedTalk> tutorials = csvHelper.mapCsvToTedtalk(file.getInputStream());
-				tedTalkRepository.saveAll(tutorials);
+				List<TedTalk> tedTalks = csvHelper.mapCsvToTedtalk(file.getInputStream());
+				tedTalkRepository.saveAll(tedTalks);
 			}
 		} catch (IOException e) {
 			log.error("TedTalkController : saveTedTalk() " + e);
