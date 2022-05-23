@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import com.io.tedtalk.constants.TedTalkConstants;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
-@Builder
+@AllArgsConstructor
 public class TedTalkDto implements Serializable {
 	
 	/**
@@ -41,16 +41,5 @@ public class TedTalkDto implements Serializable {
 	@NotNull(message = TedTalkConstants.LINK_NON_EMPTY)
 	private String link;
 
-	public TedTalkDto(String tedTalkId, String title, String date, String author, Long views, Long likes,
-			String link) {
-		this.tedTalkId = tedTalkId;
-		this.title = title;
-		this.date = date;
-		this.author = author;
-		this.views = views;
-		this.likes = likes;
-		this.link = link;
-	}
-	
 	
 }

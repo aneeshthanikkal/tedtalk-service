@@ -51,13 +51,7 @@ public class TedTalkService {
 	public TedTalkDto findTedTalkById(String id) {
 		TedTalk tedTalk = tedTalkRepository.findById(id)
 				.orElseThrow(() -> new CommonResourceNotFoundException(TedTalkConstants.TEDTALK_NOT_FOUND));
-		return createTedTalkDto(tedTalk);
-	}
-
-	private TedTalkDto createTedTalkDto(TedTalk tedTalk) {
-		return TedTalkDto.builder().author(tedTalk.getAuthor()).date(tedTalk.getDate()).likes(tedTalk.getLikes())
-				.link(tedTalk.getLink()).tedTalkId(tedTalk.getTedTalkId()).title(tedTalk.getTitle())
-				.views(tedTalk.getViews()).build();
+		return modelMapper.map(tedTalk, TedTalkDto.class);
 	}
 
 	public List<TedTalkDto> findTedTalks(String author, String title, Long views, Long likes) {
