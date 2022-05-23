@@ -21,6 +21,7 @@ import com.io.tedtalk.model.TedTalk;
 
 @Component
 public class CSVHelper {
+	
 	public static String TYPE = "text/csv";
 
 	public boolean hasCSVFormat(MultipartFile file) {
@@ -41,7 +42,6 @@ public class CSVHelper {
 	}
 
 	private Function<CSVRecord, TedTalk> mapCvsRecord = (csvRecord) -> {
-
 		return TedTalk.builder().author(csvRecord.get(TedTalkConstants.AUTHOR))
 				.date(csvRecord.get(TedTalkConstants.DATE))
 				.likes(StringUtils.isNumeric(csvRecord.get(TedTalkConstants.LIKES))
