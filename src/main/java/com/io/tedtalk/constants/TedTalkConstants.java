@@ -14,5 +14,7 @@ public class TedTalkConstants {
 	public static final String TITLE_NON_EMPTY = "TITLE_NON_EMPTY";
 	public static final String AUTHOR_NON_EMPTY = "AUTHOR_NON_EMPTY";
 	public static final String LINK_NON_EMPTY = "LINK_NON_EMPTY";
+	public static final String UNAUTHORISED = "Error: Unauthorized";
+	public static final String NO_USER_FOUND = "No user found with the username ";
 	
 }

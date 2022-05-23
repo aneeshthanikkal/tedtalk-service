@@ -43,7 +43,7 @@ public class TedTalkService {
 				tedTalkRepository.saveAll(tedTalks);
 			}
 		} catch (IOException e) {
-			log.error("TedTalkController : saveTedTalk() " + e);
+			log.error("TedTalkController : saveTedTalk() ", e);
 			throw new CommonBadRequestException(TedTalkConstants.INVALID_INPUT);
 		}
 	}
