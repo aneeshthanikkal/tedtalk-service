@@ -1,12 +1,13 @@
 package com.io.tedtalk.service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,10 +27,13 @@ public class TedTalkService {
 	private TedTalkRepository tedTalkRepository;
 
 	private CSVHelper csvHelper;
+	
+    private ModelMapper modelMapper;
 
-	public TedTalkService(TedTalkRepository tedTalkRepository, CSVHelper csvHelper) {
+	public TedTalkService(TedTalkRepository tedTalkRepository, CSVHelper csvHelper, ModelMapper modelMapper) {
 		this.tedTalkRepository = tedTalkRepository;
 		this.csvHelper = csvHelper;
+		this.modelMapper = modelMapper;
 	}
 
 	public void saveTedTalk(MultipartFile file) {
@@ -45,8 +49,7 @@ public class TedTalkService {
 	}
 
 	public TedTalkDto findTedTalkById(String id) {
-		Optional<TedTalk> tedTalkOpt = tedTalkRepository.findById(id);
-		TedTalk tedTalk = tedTalkOpt
+		TedTalk tedTalk = tedTalkRepository.findById(id)
 				.orElseThrow(() -> new CommonResourceNotFoundException(TedTalkConstants.TEDTALK_NOT_FOUND));
 		return createTedTalkDto(tedTalk);
 	}
@@ -63,11 +66,8 @@ public class TedTalkService {
 		if (tedTalks.size() == 0) {
 			throw new CommonResourceNotFoundException(TedTalkConstants.TEDTALK_NOT_FOUND);
 		}
-		List<TedTalkDto> tedTalkDtoList = new ArrayList<>();
-		for (TedTalk tedTalk : tedTalks) {
-			tedTalkDtoList.add(createTedTalkDto(tedTalk));
-		}
-		return tedTalkDtoList;
+		return tedTalks.stream().map(tedTalk -> modelMapper.map(tedTalk, TedTalkDto.class))
+				.collect(Collectors.toList());
 	}
 
 	public void deleteTedTalk(String id) {
@@ -79,17 +79,15 @@ public class TedTalkService {
 	}
 
 	public TedTalkDto updateTedTalk(String id, TedTalkDto tedTalkDto) {
-		Optional<TedTalk> tedTalkOpt = tedTalkRepository.findById(id);
-		TedTalk tedTalk = tedTalkOpt
+		TedTalk tedTalk = tedTalkRepository.findById(id)
 				.orElseThrow(() -> new CommonResourceNotFoundException(TedTalkConstants.TEDTALK_NOT_FOUND));
-		tedTalkRepository.save(createTedTalk(tedTalkDto, tedTalk.getTedTalkId()));
+		tedTalkRepository.save(createTedTalk(tedTalkDto, tedTalk));
 		return tedTalkDto;
 	}
 
-	private TedTalk createTedTalk(TedTalkDto tedTalkDto, String tedTalkId) {
-
+	private TedTalk createTedTalk(TedTalkDto tedTalkDto, TedTalk tedTalk) {
 		return TedTalk.builder().author(tedTalkDto.getAuthor()).date(tedTalkDto.getDate()).likes(tedTalkDto.getLikes())
 				.link(tedTalkDto.getLink()).title(tedTalkDto.getTitle()).views(tedTalkDto.getViews())
-				.tedTalkId(tedTalkId).build();
+				.build();
 	}
 }
