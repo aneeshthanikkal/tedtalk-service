@@ -1,7 +1,5 @@
 package com.io.tedtalk.dto;
 
-import java.io.Serializable;
-
 import javax.validation.constraints.NotNull;
 
 import com.io.tedtalk.constants.TedTalkConstants;
@@ -17,13 +15,8 @@ import lombok.Setter;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class TedTalkDto implements Serializable {
+public class TedTalkDto {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 917751056631431767L;
-
 	private String tedTalkId;
 
 	@NotNull(message = TedTalkConstants.TITLE_NON_EMPTY)

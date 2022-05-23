@@ -1,10 +1,8 @@
 package com.io.tedtalk.exception;
 
-import java.io.Serializable;
-
 import org.springframework.http.HttpStatus;
 
-public class CommonResourceNotFoundException extends RuntimeException implements Serializable{
+public class CommonResourceNotFoundException extends RuntimeException{
 
 	private static final long serialVersionUID = 6175801603735087430L;
 

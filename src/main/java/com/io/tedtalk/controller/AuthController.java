@@ -15,19 +15,17 @@ import com.io.tedtalk.dto.LoginRequest;
 import com.io.tedtalk.dto.LoginResponse;
 import com.io.tedtalk.security.JwtUtils;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping(RestURIConstants.SECURITY_CONTEXT)
+@RequiredArgsConstructor
 public class AuthController {
 	
-	AuthenticationManager authenticationManager;
+	private final AuthenticationManager authenticationManager;
 	
-	JwtUtils jwtUtils;
+	private final JwtUtils jwtUtils;
 	
-	public AuthController(AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
-		this.authenticationManager = authenticationManager;
-		this.jwtUtils = jwtUtils;
-	}
-
 	@PostMapping(RestURIConstants.SIGNIN)
 	public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
 		Authentication authentication = authenticationManager.authenticate(

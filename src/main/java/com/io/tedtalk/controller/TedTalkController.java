@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,15 +22,13 @@ import com.io.tedtalk.constants.TedTalkConstants;
 import com.io.tedtalk.dto.TedTalkDto;
 import com.io.tedtalk.service.TedTalkService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
+@RequiredArgsConstructor
 public class TedTalkController {
-	static final Log log = LogFactory.getLog(TedTalkController.class);
 
-	private TedTalkService tedTalkService;
-
-	public TedTalkController(TedTalkService tedTalkService) {
-		this.tedTalkService = tedTalkService;
-	}
+	private final TedTalkService tedTalkService;
 
 	@PostMapping(path = RestURIConstants.TEDTALK, produces = "application/vnd.company.app-v1+json")
 	@PreAuthorize("hasRole('ROLE_WRITE')")

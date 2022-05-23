@@ -13,9 +13,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.io.tedtalk.model.User;
 public class UserDetailsImpl implements UserDetails {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4003519237896370166L;
 	
 	private String id;

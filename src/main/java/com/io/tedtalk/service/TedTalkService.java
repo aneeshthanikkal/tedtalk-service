@@ -15,31 +15,27 @@ import com.io.tedtalk.constants.TedTalkConstants;
 import com.io.tedtalk.dto.TedTalkDto;
 import com.io.tedtalk.exception.CommonBadRequestException;
 import com.io.tedtalk.exception.CommonResourceNotFoundException;
-import com.io.tedtalk.helper.CSVHelper;
 import com.io.tedtalk.model.TedTalk;
 import com.io.tedtalk.repository.TedTalkRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class TedTalkService {
 
-	static final Log log = LogFactory.getLog(TedTalkService.class);
+	private static final Log log = LogFactory.getLog(TedTalkService.class);
 
-	private TedTalkRepository tedTalkRepository;
+	private final TedTalkRepository tedTalkRepository;
 
-	private CSVHelper csvHelper;
+	private final CSVService csvService;
 	
-    private ModelMapper modelMapper;
-
-	public TedTalkService(TedTalkRepository tedTalkRepository, CSVHelper csvHelper, ModelMapper modelMapper) {
-		this.tedTalkRepository = tedTalkRepository;
-		this.csvHelper = csvHelper;
-		this.modelMapper = modelMapper;
-	}
+    private final ModelMapper modelMapper;
 
 	public void saveTedTalk(MultipartFile file) {
 		try {
-			if (csvHelper.hasCSVFormat(file)) {
-				List<TedTalk> tedTalks = csvHelper.mapCsvToTedtalk(file.getInputStream());
+			if (csvService.hasCSVFormat(file)) {
+				List<TedTalk> tedTalks = csvService.mapCsvToTedtalk(file.getInputStream());
 				tedTalkRepository.saveAll(tedTalks);
 			}
 		} catch (IOException e) {
@@ -65,21 +61,21 @@ public class TedTalkService {
 	}
 
 	public void deleteTedTalk(String id) {
-		if (!tedTalkRepository.existsById(id)) {
-			throw new CommonResourceNotFoundException(TedTalkConstants.TEDTALK_NOT_FOUND);
+		if (tedTalkRepository.existsById(id)) {
+			tedTalkRepository.deleteById(id);
 		}
-		tedTalkRepository.deleteById(id);
-
+		throw new CommonResourceNotFoundException(TedTalkConstants.TEDTALK_NOT_FOUND);
 	}
 
 	public TedTalkDto updateTedTalk(String id, TedTalkDto tedTalkDto) {
-		TedTalk tedTalk = tedTalkRepository.findById(id)
-				.orElseThrow(() -> new CommonResourceNotFoundException(TedTalkConstants.TEDTALK_NOT_FOUND));
-		tedTalkRepository.save(createTedTalk(tedTalkDto, tedTalk));
+		if (tedTalkRepository.existsById(id)) {
+			tedTalkDto.setTedTalkId(id);
+			tedTalkRepository.save(createTedTalk(tedTalkDto));
+		}
 		return tedTalkDto;
 	}
 
-	private TedTalk createTedTalk(TedTalkDto tedTalkDto, TedTalk tedTalk) {
+	private TedTalk createTedTalk(TedTalkDto tedTalkDto) {
 		return TedTalk.builder().author(tedTalkDto.getAuthor()).date(tedTalkDto.getDate()).likes(tedTalkDto.getLikes())
 				.link(tedTalkDto.getLink()).title(tedTalkDto.getTitle()).views(tedTalkDto.getViews())
 				.build();

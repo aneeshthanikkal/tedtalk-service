@@ -1,7 +1,5 @@
 package com.io.tedtalk.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,13 +18,7 @@ import lombok.Setter;
 @EqualsAndHashCode
 @NoArgsConstructor
 @Builder
-public class TedTalk implements Serializable {
-
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2963992274539846470L;
+public class TedTalk {
 
 	@Id
 	@Column(name = "TEDTALK_ID", length=36)

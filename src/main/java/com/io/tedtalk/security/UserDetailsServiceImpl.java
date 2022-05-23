@@ -9,14 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.io.tedtalk.constants.TedTalkConstants;
 import com.io.tedtalk.model.User;
 import com.io.tedtalk.repository.UserRepository;
+
+import lombok.RequiredArgsConstructor;
 @Service
+@RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-	UserRepository userRepository;
-	
-	public UserDetailsServiceImpl(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
+	private final UserRepository userRepository;
 	
 	@Override
 	@Transactional
