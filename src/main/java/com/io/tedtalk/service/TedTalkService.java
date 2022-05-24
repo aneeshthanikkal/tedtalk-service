@@ -2,7 +2,6 @@ package com.io.tedtalk.service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.commons.logging.Log;
@@ -29,8 +28,8 @@ public class TedTalkService {
 	private final TedTalkRepository tedTalkRepository;
 
 	private final CSVService csvService;
-	
-    private final ModelMapper modelMapper;
+
+	private final ModelMapper modelMapper;
 
 	public void saveTedTalk(MultipartFile file) {
 		try {
@@ -51,8 +50,7 @@ public class TedTalkService {
 	}
 
 	public List<TedTalkDto> findTedTalks(String author, String title, Long views, Long likes) {
-		List<TedTalk> tedTalks = tedTalkRepository.findByAuthorAndTitleAndViewsAndLikes(Optional.ofNullable(author),
-				Optional.ofNullable(title), Optional.ofNullable(views), Optional.ofNullable(likes));
+		List<TedTalk> tedTalks = tedTalkRepository.findTedTalksByAuthorTitleViewsAndLikes(author, title, views, likes);
 		if (tedTalks.size() == 0) {
 			throw new CommonResourceNotFoundException(TedTalkConstants.TEDTALK_NOT_FOUND);
 		}
@@ -77,7 +75,6 @@ public class TedTalkService {
 
 	private TedTalk createTedTalk(TedTalkDto tedTalkDto) {
 		return TedTalk.builder().author(tedTalkDto.getAuthor()).date(tedTalkDto.getDate()).likes(tedTalkDto.getLikes())
-				.link(tedTalkDto.getLink()).title(tedTalkDto.getTitle()).views(tedTalkDto.getViews())
-				.build();
+				.link(tedTalkDto.getLink()).title(tedTalkDto.getTitle()).views(tedTalkDto.getViews()).build();
 	}
 }

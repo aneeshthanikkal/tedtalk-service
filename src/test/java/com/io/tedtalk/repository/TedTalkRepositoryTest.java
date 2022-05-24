@@ -13,7 +13,7 @@ import com.io.tedtalk.model.TedTalk;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class TedTalkDaoTest {
+public class TedTalkRepositoryTest {
 
 	@Autowired
 	TedTalkRepository tedTalkRepository;
