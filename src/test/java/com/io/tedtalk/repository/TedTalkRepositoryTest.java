@@ -29,7 +29,9 @@ public class TedTalkRepositoryTest {
 
 		tedTalkRepository.save(tedTalk);
 
-		Iterable<TedTalk> tedTalks = tedTalkRepository.findAll();
+		Iterable<TedTalk> tedTalks = tedTalkRepository.findTedTalksByAuthorTitleViewsAndLikes("Auth", null, null, null);
+		Assertions.assertThat(tedTalks).extracting(TedTalk::getTitle).contains("Title");
+		tedTalks = tedTalkRepository.findAll();
 		Assertions.assertThat(tedTalks).extracting(TedTalk::getTitle).contains("Title");
 
 		tedTalkRepository.deleteAll();
