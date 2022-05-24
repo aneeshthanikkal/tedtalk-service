@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.io.tedtalk.constants.RestURIConstants;
 import com.io.tedtalk.dto.LoginRequest;
 import com.io.tedtalk.dto.LoginResponse;
 import com.io.tedtalk.security.JwtUtils;
@@ -18,7 +17,7 @@ import com.io.tedtalk.security.JwtUtils;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping(RestURIConstants.SECURITY_CONTEXT)
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
 	
@@ -26,7 +25,7 @@ public class AuthController {
 	
 	private final JwtUtils jwtUtils;
 	
-	@PostMapping(RestURIConstants.SIGNIN)
+	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));

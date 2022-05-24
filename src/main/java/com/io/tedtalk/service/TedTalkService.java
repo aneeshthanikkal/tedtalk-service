@@ -61,6 +61,7 @@ public class TedTalkService {
 	public void deleteTedTalk(String id) {
 		if (tedTalkRepository.existsById(id)) {
 			tedTalkRepository.deleteById(id);
+			return;
 		}
 		throw new CommonResourceNotFoundException(TedTalkConstants.TEDTALK_NOT_FOUND);
 	}
@@ -69,12 +70,13 @@ public class TedTalkService {
 		if (tedTalkRepository.existsById(id)) {
 			tedTalkDto.setTedTalkId(id);
 			tedTalkRepository.save(createTedTalk(tedTalkDto));
+			return tedTalkDto;
 		}
-		return tedTalkDto;
+		throw new CommonResourceNotFoundException(TedTalkConstants.TEDTALK_NOT_FOUND);
 	}
 
 	private TedTalk createTedTalk(TedTalkDto tedTalkDto) {
 		return TedTalk.builder().author(tedTalkDto.getAuthor()).date(tedTalkDto.getDate()).likes(tedTalkDto.getLikes())
-				.link(tedTalkDto.getLink()).title(tedTalkDto.getTitle()).views(tedTalkDto.getViews()).build();
+				.link(tedTalkDto.getLink()).title(tedTalkDto.getTitle()).views(tedTalkDto.getViews()).tedTalkId(tedTalkDto.getTedTalkId()).build();
 	}
 }
