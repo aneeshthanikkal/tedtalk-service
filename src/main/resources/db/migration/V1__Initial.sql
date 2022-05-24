@@ -36,6 +36,17 @@ CREATE TABLE IF NOT EXISTS io.t_user_roles
         REFERENCES io.t_user (id) 
 );
 
+CREATE TABLE IF NOT EXISTS io.t_favourite_tedtalk
+(
+    user_id character varying(36) NOT NULL,
+    tedtalk_id character varying(36) NOT NULL,
+    CONSTRAINT t_favourite_tedtalk_pkey PRIMARY KEY (user_id, tedtalk_id),
+    CONSTRAINT fk_tadtalk_id FOREIGN KEY (tedtalk_id)
+        REFERENCES io.t_tedtalk (tedtalk_id),
+    CONSTRAINT fk_user_id FOREIGN KEY (user_id)
+        REFERENCES io.t_user (id)
+);
+
 INSERT INTO io.t_roles(
 	id, name)
 	VALUES ('21f629d6-aa6d-11ec-b909-0242ac120002', 'ROLE_READ');

@@ -4,11 +4,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.io.tedtalk.model.User;
+import com.io.tedtalk.model.UserProfile;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, String> {
-	Optional<User> findByUsername(String username);
+public interface UserRepository extends JpaRepository<UserProfile, String> {
+	Optional<UserProfile> findByUsername(String username);
 
 	Boolean existsByUsername(String username);
 }
