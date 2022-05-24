@@ -31,7 +31,7 @@ public class TedTalkController {
 
 	private final TedTalkService tedTalkService;
 
-	@PostMapping(path = "upload", produces = "application/vnd.company.app-v1+json")
+	@PostMapping(path = "import", produces = "application/vnd.company.app-v1+json")
 	@PreAuthorize("hasRole('ROLE_WRITE')")
 	public ResponseEntity<String> saveTedTalk(@RequestParam("file") MultipartFile file) {
 		tedTalkService.saveTedTalk(file);

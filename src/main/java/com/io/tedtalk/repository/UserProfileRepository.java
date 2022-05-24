@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.io.tedtalk.model.UserProfile;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserProfile, String> {
+public interface UserProfileRepository extends JpaRepository<UserProfile, String> {
 	Optional<UserProfile> findByUsername(String username);
 
 	Boolean existsByUsername(String username);

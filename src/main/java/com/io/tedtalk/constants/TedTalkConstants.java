@@ -16,5 +16,9 @@ public class TedTalkConstants {
 	public static final String LINK_NON_EMPTY = "LINK_NON_EMPTY";
 	public static final String UNAUTHORISED = "Error: Unauthorized";
 	public static final String NO_USER_FOUND = "No user found with the username ";
+	public static final String TEDTALK_ADDED_TO_FAVOURITES = "TEDTALK_ADDED_TO_FAVOURITES";
+	public static final String TEDTALK_REMOVED_FROM_FAVOURITES = "TEDTALK_REMOVED_FROM_FAVOURITES";
+	public static final String USER_PROFILE_NOT_FOUND = "USER_PROFILE_NOT_FOUND";
+
 	
 }

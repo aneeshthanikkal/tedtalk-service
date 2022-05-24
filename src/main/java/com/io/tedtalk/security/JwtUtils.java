@@ -1,15 +1,25 @@
 package com.io.tedtalk.security;
 
+import java.util.Arrays;
 import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
 import io.jsonwebtoken.*;
 @Component
 public class JwtUtils {
 	private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
+	public static final String AUTHORIZATION_HEADER = "Authorization";
+	public static final String TOKEN_SEPERATOR = " ";
 	
 	@Value("${jwt.secret}")
 	private String jwtSecret;
@@ -47,5 +57,14 @@ public class JwtUtils {
 			logger.error("JWT claims string is empty: {}", e.getMessage());
 		}
 		return false;
+	}
+	
+	public String getAccessToken(){
+	    RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+	    if (requestAttributes instanceof ServletRequestAttributes) {
+	        HttpServletRequest request = ((ServletRequestAttributes)requestAttributes).getRequest();
+	        return Arrays.asList(request.getHeader(AUTHORIZATION_HEADER).split(TOKEN_SEPERATOR)).get(1);
+	    }
+	    return null;
 	}
 }
