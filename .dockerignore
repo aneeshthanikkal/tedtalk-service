@@ -1,6 +1,9 @@
 target/
-.git/
-.idea/
+!target/*.jar
+.git
+.idea
+.vscode
 *.iml
 *.log
-.DS_Store
+.env
+*.pem
