@@ -37,7 +37,7 @@ public class TedTalkService {
 				List<TedTalk> tedTalks = csvService.mapCsvToTedtalk(file.getInputStream());
 				tedTalkRepository.saveAll(tedTalks);
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			log.error("TedTalkController : saveTedTalk() ", e);
 			throw new CommonBadRequestException(TedTalkConstants.INVALID_INPUT);
 		}
