@@ -1,6 +1,5 @@
 package com.io.tedtalk.service;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +36,7 @@ public class TedTalkService {
 				List<TedTalk> tedTalks = csvService.mapCsvToTedtalk(file.getInputStream());
 				tedTalkRepository.saveAll(tedTalks);
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			log.error("TedTalkController : saveTedTalk() ", e);
 			throw new CommonBadRequestException(TedTalkConstants.INVALID_INPUT);
 		}
