@@ -1,9 +1,0 @@
-target/
-!target/*.jar
-.git
-.idea
-.vscode
-*.iml
-*.log
-.env
-*.pem
