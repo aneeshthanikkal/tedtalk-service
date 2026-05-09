@@ -30,6 +30,12 @@ import lombok.RequiredArgsConstructor;
 public class TedTalkController {
 
 	private final TedTalkService tedTalkService;
+	
+	@GetMapping(path = "test", produces = "application/vnd.company.app-v1+json")
+	public ResponseEntity<String> test() {
+		return new ResponseEntity<>(TedTalkConstants.TEDTALK_SAVED_SUCCESSFULLY, HttpStatus.CREATED);
+	}
+
 
 	@PostMapping(path = "import", produces = "application/vnd.company.app-v1+json")
 	@PreAuthorize("hasRole('ROLE_WRITE')")
