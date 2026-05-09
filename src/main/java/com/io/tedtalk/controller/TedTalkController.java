@@ -35,7 +35,8 @@ public class TedTalkController {
 	@PreAuthorize("hasRole('ROLE_WRITE')")
 	public ResponseEntity<String> saveTedTalk(@RequestParam("file") MultipartFile file) {
 		tedTalkService.saveTedTalk(file);
-		return new ResponseEntity<>(TedTalkConstants.TEDTALK_SAVED_SUCCESSFULLY, HttpStatus.CREATED);
+		throw new NullPointerException("Unexpected null value after saving ted talk");
+		//return new ResponseEntity<>(TedTalkConstants.TEDTALK_SAVED_SUCCESSFULLY, HttpStatus.CREATED);
 	}
 
 	@GetMapping(path = "{id}", produces = "application/vnd.company.app-v1+json")
