@@ -41,6 +41,8 @@ public class TedTalkController {
 	@GetMapping(path = "{id}", produces = "application/vnd.company.app-v1+json")
 	@PreAuthorize("hasRole('ROLE_READ')")
 	public ResponseEntity<TedTalkDto> findTedTalkById(@PathVariable(name = "id") String id) {
+		String result = null;
+		result.length();
 		return new ResponseEntity<>(tedTalkService.findTedTalkById(id), HttpStatus.OK);
 	}
 
