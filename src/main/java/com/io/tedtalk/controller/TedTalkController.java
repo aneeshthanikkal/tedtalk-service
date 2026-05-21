@@ -34,9 +34,6 @@ public class TedTalkController {
 	@PostMapping(path = "import", produces = "application/vnd.company.app-v1+json")
 	@PreAuthorize("hasRole('ROLE_WRITE')")
 	public ResponseEntity<String> saveTedTalk(@RequestParam("file") MultipartFile file) {
-		if(true){
-			throw new NullPointerException();
-		}
 		tedTalkService.saveTedTalk(file);
 		return new ResponseEntity<>(TedTalkConstants.TEDTALK_SAVED_SUCCESSFULLY, HttpStatus.CREATED);
 	}
